@@ -1,0 +1,29 @@
+{
+    "name": "scuti/service-generator",
+    "description": "Package allow us to create Service layer",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Canh Hoang",
+            "email": "hoangcanhit95@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Scuti\\Admin\\ServiceGenerator\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Scuti\\Admin\\ServiceGenerator\\ServiceGeneratorProvider"
+            ],
+            "aliases": {
+                "ScutiServiceGenerator": "Scuti\\Admin\\ServiceGenerator\\ServiceGeneratorProvider"
+            }
+        }
+    },
+    "minimum-stability": "stable"
+}
