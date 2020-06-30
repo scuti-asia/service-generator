@@ -24,8 +24,7 @@ class ServiceGeneratorProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/commands' => base_path('app/Console/Commands/'),
-            __DIR__.'/stubs' => base_path('resources/stubs/'),
+            __DIR__.'/commands' => base_path('app/Console/Commands/')
         ], "service-generator");
     }
 }
