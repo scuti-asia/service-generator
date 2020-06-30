@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Scuti\Admin\ServiceGenerator\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class ServiceGenerator extends Command
 {
@@ -44,7 +45,7 @@ class ServiceGenerator extends Command
 
         File::append(
             base_path('routes/api.php'),
-            'Route::resource(\'' . str_plural(strtolower($name)) . "', '{$name}Service');"
+            'Route::resource(\'' . Str::plural(strtolower($name)) . "', '{$name}Service');"
         );
     }
 
@@ -57,7 +58,7 @@ class ServiceGenerator extends Command
     {
         $serviceTemplate = str_replace(
             ['{{serviceName}}'],
-            [$name],
+            [$name.'Service'],
             $this->getStub('ServiceEntity')
         );
 

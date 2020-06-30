@@ -12,7 +12,9 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Scuti\\Admin\\ServiceGenerator\\": "src/"
+            "Scuti\\Admin\\ServiceGenerator\\": "src/",
+            "Scuti\\Admin\\ServiceGenerator\\Commands": "src/commands/",
+            "Scuti\\Admin\\ServiceGenerator\\Services": "src/services/"
         }
     },
     "extra": {
