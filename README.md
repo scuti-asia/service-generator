@@ -13,7 +13,7 @@ composer require scuti/service-generator
 ```php
 php artisan vendor:publish --provider="Scuti\Admin\ServiceGenerator\ServiceGeneratorProvider"
 ```
-### Step 3: Use command to generate Repository
+### Step 3: Use command to generate service
 ```
-php artisan make:service NameOfRepository
+php artisan make:service NameOfService
 ```

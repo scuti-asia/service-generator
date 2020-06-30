@@ -1,6 +1,6 @@
 <?php
 
-namespace Scuti\Admin\RepositoryRegenator;
+namespace Scuti\Admin\ServiceGenerator;
 
 use Illuminate\Support\ServiceProvider;
 
