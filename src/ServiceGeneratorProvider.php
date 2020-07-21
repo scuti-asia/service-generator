@@ -30,7 +30,7 @@ class ServiceGeneratorProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                CreateNewService::class,
+                CreateNewService::class
             ]);
         }
     }
