@@ -51,7 +51,7 @@ class CreateNewService extends Command
 
     protected function getStub($type)
     {
-        return __DIR__ . "/stubs/$type.stub";
+        return $this->files->get(__DIR__ . "/stubs/$type.stub");
     }
 
     protected function createServiceLayer($name)
@@ -66,6 +66,6 @@ class CreateNewService extends Command
             mkdir($path, 0777, true);
         }
 
-        file_put_contents(app_path("/Services/{$name}.php"), $serviceTemplate);
+        $this->files->put(app_path("/Services/{$name}.php"), $serviceTemplate);
     }
 }
