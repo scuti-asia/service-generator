@@ -27,5 +27,8 @@
             }
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "config": {
+        "optimize-autoloader": true
+    }
 }
