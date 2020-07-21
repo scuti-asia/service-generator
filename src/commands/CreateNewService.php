@@ -51,7 +51,7 @@ class CreateNewService extends Command
 
     protected function getStub($type)
     {
-        return file_get_contents(resource_path("stubs/$type.stub"));
+        return __DIR__ . "/stubs/$type.stub";
     }
 
     protected function createServiceLayer($name)
