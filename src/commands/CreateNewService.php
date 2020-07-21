@@ -66,6 +66,6 @@ class CreateNewService extends Command
             mkdir($path, 0777, true);
         }
 
-        file_put_contents(app_path("/Services/{$name}.php"), $serviceTemplate);
+        file_put_contents(app_path("/Services/{$name}Service.php"), $serviceTemplate);
     }
 }
