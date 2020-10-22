@@ -14,7 +14,7 @@ class ServiceGeneratorProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'service-generator');
+        $this->mergeConfigFrom(__DIR__.'/config/service_layer.php', 'service-generator');
     }
 
     /**
