@@ -56,13 +56,21 @@ class CreateNewService extends Command
 
     protected function createServiceLayer($name)
     {
-        $servicePath = config('service_layer.path');
+        $servicePath = config('service_layer.service_path');
 
         $serviceTemplate = str_replace(
             ['{{serviceName}}'],
             [$name.'Service'],
             $this->getStub('ServiceEntity')
         );
+
+        if (config('service_layer.allow_implement_interface')) {
+            $contractTemplate = str_replace(
+                ['{{serviceName}}'],
+                [$name.'Service'],
+                $this->getStub('ServiceEntity')
+            );
+        }
 
         if(!file_exists($path = app_path('/Services'))) {
             mkdir($path, 0777, true);

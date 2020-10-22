@@ -1,0 +1,9 @@
+<?php
+
+namespace Scuti\Admin\ServiceGenerator\Services\Interfaces;
+
+use Scuti\Admin\ServiceGenerator\Services\Contracts\BaseServiceInterface;
+
+interface {{InterfaceName}} extend BaseServiceInterface {
+    //
+}
