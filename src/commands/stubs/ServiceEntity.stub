@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+
 use Scuti\Admin\ServiceGenerator\Services\BaseService;
 
 class {{serviceName}} extends BaseService

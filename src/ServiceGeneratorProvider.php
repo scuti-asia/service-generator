@@ -14,7 +14,7 @@ class ServiceGeneratorProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'service-generator');
     }
 
     /**
@@ -25,7 +25,7 @@ class ServiceGeneratorProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/commands' => base_path('app/Console/Commands/')
+            __DIR__. '/config' => base_path('config/')
         ], "service-generator");
 
         if ($this->app->runningInConsole()) {

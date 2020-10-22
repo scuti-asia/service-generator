@@ -56,6 +56,8 @@ class CreateNewService extends Command
 
     protected function createServiceLayer($name)
     {
+        $servicePath = config('service_layer.path');
+
         $serviceTemplate = str_replace(
             ['{{serviceName}}'],
             [$name.'Service'],
@@ -66,6 +68,6 @@ class CreateNewService extends Command
             mkdir($path, 0777, true);
         }
 
-        file_put_contents(app_path("/Services/{$name}Service.php"), $serviceTemplate);
+        file_put_contents($servicePath . DIRECTORY_SEPARATOR . "{$name}Service.php", $serviceTemplate);
     }
 }
