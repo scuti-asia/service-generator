@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace {{serviceNamespace}};
 
-use Scuti\Admin\ServiceGenerator\Services\BaseService;
-
-class {{serviceName}} extends BaseService
+use Scuti\Admin\ServiceGenerator\Services\ScutiBaseService;
+{{useContract}}
+class {{serviceName}} extends ScutiBaseService{{implementContract}}
 {
     //
 }

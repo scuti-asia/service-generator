@@ -1,0 +1,9 @@
+<?php
+
+namespace {{contractNamespace}};
+
+use Scuti\Admin\ServiceGenerator\Services\Contracts\ScutiBaseServiceContract;
+
+interface {{contractName}} extends ScutiBaseServiceContract {
+    //
+}

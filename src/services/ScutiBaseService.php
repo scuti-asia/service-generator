@@ -2,7 +2,7 @@
 
 namespace Scuti\Admin\ServiceGenerator\Services;
 
-abstract class BaseService
+abstract class ScutiBaseService
 {
  // Add functions
 }

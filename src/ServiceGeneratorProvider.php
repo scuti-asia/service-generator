@@ -25,7 +25,7 @@ class ServiceGeneratorProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__. '/config' => base_path('config/')
+            __DIR__. '/config/service_layer.php' => config_path('service_layer.php')
         ], "service-generator");
 
         if ($this->app->runningInConsole()) {

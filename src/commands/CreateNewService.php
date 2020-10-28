@@ -2,9 +2,8 @@
 
 namespace Scuti\Admin\ServiceGenerator\Commands;
 
+use Illuminate\Config\Repository;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class CreateNewService extends Command
 {
@@ -23,6 +22,11 @@ class CreateNewService extends Command
     protected $description = 'Create service operations';
 
     /**
+     * @var Repository
+     */
+    protected $config;
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -32,21 +36,12 @@ class CreateNewService extends Command
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function handle(Repository $config)
     {
+        $this->config = $config;
         $name = $this->argument('name');
 
         $this->createServiceLayer($name);
-
-        File::append(
-            base_path('routes/api.php'),
-            'Route::resource(\'' . Str::plural(strtolower($name)) . "', '{$name}Service');"
-        );
     }
 
     protected function getStub($type)
@@ -56,26 +51,53 @@ class CreateNewService extends Command
 
     protected function createServiceLayer($name)
     {
-        $servicePath = config('service_layer.service_path');
+        $servicePath = $this->config->get('service-generator.service_path');
+        $nameSpace = $this->namespaceGenerate(explode(DIRECTORY_SEPARATOR, $servicePath));
+        $contractClass = '';
+        $contractNamespace = '';
+
+        if (config('service-generator.allow_implement_interface')) {
+            $contractClass = $name.'ServiceContract';
+            $contractNamespace = $this->namespaceGenerate(explode(DIRECTORY_SEPARATOR, $servicePath . DIRECTORY_SEPARATOR . 'Contracts'));
+            $interfaceTemplate = str_replace(
+                ['{{contractName}}', '{{contractNamespace}}'],
+                [$contractClass, $contractNamespace],
+                $this->getStub('ContractEntity')
+            );
+
+            if(!file_exists($interfacePath = app_path($servicePath . DIRECTORY_SEPARATOR . 'Contracts'))) {
+                mkdir($interfacePath, 0775, true);
+            }
+
+            file_put_contents($interfacePath . DIRECTORY_SEPARATOR . $contractClass . ".php", $interfaceTemplate);
+        }
+        $implementContract = ' implements ' . $contractClass;
 
         $serviceTemplate = str_replace(
-            ['{{serviceName}}'],
-            [$name.'Service'],
+            [
+                '{{serviceName}}',
+                '{{serviceNamespace}}',
+                '{{implementContract}}',
+                '{{useContract}}'
+            ],
+            [
+                $name.'Service',
+                $nameSpace,
+                config('service-generator.allow_implement_interface') ? $implementContract : '',
+                config('service-generator.allow_implement_interface') ? 'use ' . $contractNamespace . '\\' . $contractClass . ';' . PHP_EOL : '',
+            ],
             $this->getStub('ServiceEntity')
         );
 
-        if (config('service_layer.allow_implement_interface')) {
-            $contractTemplate = str_replace(
-                ['{{serviceName}}'],
-                [$name.'Service'],
-                $this->getStub('ServiceEntity')
-            );
+        if(!file_exists($path = app_path($servicePath))) {
+            mkdir($path, 0775, true);
         }
 
-        if(!file_exists($path = app_path('/Services'))) {
-            mkdir($path, 0777, true);
-        }
+        file_put_contents($path . DIRECTORY_SEPARATOR . "{$name}Service.php", $serviceTemplate);
+    }
 
-        file_put_contents($servicePath . DIRECTORY_SEPARATOR . "{$name}Service.php", $serviceTemplate);
+    private function namespaceGenerate(array $subPaths) : string
+    {
+        return app()->getNamespace() . implode("\\", $subPaths);
     }
 }
