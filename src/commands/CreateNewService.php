@@ -42,6 +42,7 @@ class CreateNewService extends Command
         $name = $this->argument('name');
 
         $this->createServiceLayer($name);
+        $this->info('Create service ' . $name . ' Successfully!');
     }
 
     protected function getStub($type)
@@ -55,6 +56,11 @@ class CreateNewService extends Command
         $nameSpace = $this->namespaceGenerate(explode(DIRECTORY_SEPARATOR, $servicePath));
         $contractClass = '';
         $contractNamespace = '';
+
+        if (file_exists(app_path($servicePath . DIRECTORY_SEPARATOR . $name . 'Service.php'))) {
+            $this->warn('Service ' . $name . ' already exists!');
+            exit();
+        }
 
         if (config('service-generator.allow_implement_interface')) {
             $contractClass = $name.'ServiceContract';
